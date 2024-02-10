@@ -1,8 +1,8 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Request, Response } from 'express';
 import { configDotenv } from 'dotenv';
 
-import { End_Login, End_Logout } from './controller/route';
-import { Authenticate } from './controller/validate';
+import { Dashboard, Dashboard_DB, Login, Logout } from './controller/route';
+import Authenticate from './controller/validate';
 
 configDotenv();
 const app = express();
@@ -14,22 +14,16 @@ app.get('/', (req: Request, res: Response) => {
     res.send('Hello !');
 });
 
-// Authentication
+// Authorization
 app.use(Authenticate);
 
 // Need authentication to access endpoint
-app.get('/login', (req: Request, res: Response) => {
-	End_Login(req, res);
-});
+app.get('/login', Login, Authenticate);
 
-app.get('/dashboard', (req: Request, res: Response) => {
-	res.send('Welcome to dashboard');
-});
+app.get('/dashboard', Dashboard);
+app.get('/dashboard/db', Dashboard_DB);
 
-// Logout
-app.get('/logout', (req: Request, res: Response) => {
-	End_Logout(req, res);
-});
+app.get('/logout', Logout);
 
 app.listen(port, () => {
     console.log(`Server is listening on ${url}:${port}`);

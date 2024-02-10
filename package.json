@@ -19,6 +19,9 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "express-session": "^1.18.0"
+    "express-session": "^1.18.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.9.1",
+    "sqlite3": "^5.1.7"
   }
 }

@@ -1,13 +1,23 @@
 import express, { Request, Response, NextFunction } from "express";
 
-export function End_Login(req: Request, res: Response){
+export function Login(req: Request, res: Response, next: NextFunction){
     // Middleware Authenticate
 	res.redirect('/dashboard');
-	res.send('Login success !')
+	return next;
 }
 
-export function End_Logout(req: Request, res: Response){
+export function Logout(req: Request, res: Response, next: NextFunction){
     // Logout
-    let head = res.setHeader('WWW-Authenticate', 'Basic realm="Restricted Area"');
-	res.status(401).send('Please Login !');
+    res.setHeader('WWW-Authenticate', 'Basic realm="Restricted Area"');
+	res.status(401).send('Logout success !');
+	return next;
+}
+
+export const Dashboard = (req: Request, res: Response) => {
+	res.send("This is Dashboard");
+}
+
+export const Dashboard_DB = (req: Request, res: Response) => {
+	
+	res.send("This is database");
 }
