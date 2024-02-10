@@ -13,11 +13,16 @@ export function Logout(req: Request, res: Response, next: NextFunction){
 	return next;
 }
 
-export const Dashboard = (req: Request, res: Response) => {
+export const Dashboard = (req: Request, res: Response, next: NextFunction) => {
 	res.send("This is Dashboard");
+	return next;
 }
 
-export const Dashboard_DB = (req: Request, res: Response) => {
-	
+const Dashboard_DB = (req: Request, res: Response) => {
 	res.send("This is database");
+}
+
+export function Init(app: express.Application){
+	app.get('/dashboard', Dashboard);
+	app.get('/dashboard/db', Dashboard_DB);
 }
