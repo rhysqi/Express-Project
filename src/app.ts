@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use(Authenticate);
 
 // Need authentication to access endpoint
-app.get('/login', Login, Authenticate);
+app.get('/login', Authenticate, Login);
 
 app.get('/dashboard', Dashboard);
 app.get('/dashboard/db', Dashboard_DB);
