@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { configDotenv } from 'dotenv';
 
-import { Dashboard, Dashboard_DB, Login, Logout } from './controller/route';
+import { Init, Login, Logout } from './controller/route';
 import Authenticate from './controller/validate';
 
 configDotenv();
@@ -9,7 +9,7 @@ const app = express();
 const url = process.env.WEB_URL;
 const port = process.env.WEB_PORT;
 
-// Base Endpoint
+// Start endpoint
 app.get('/', (req: Request, res: Response) => {
     res.send('Hello !');
 });
@@ -20,8 +20,8 @@ app.use(Authenticate);
 // Need authentication to access endpoint
 app.get('/login', Authenticate, Login);
 
-app.get('/dashboard', Dashboard);
-app.get('/dashboard/db', Dashboard_DB);
+// Initialization
+Init(app);
 
 app.get('/logout', Logout);
 
