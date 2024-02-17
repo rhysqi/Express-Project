@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { configDotenv } from 'dotenv';
 
 import { Init, Login, Logout } from './controller/route';
-import Authenticate from './controller/validate';
+import Basic_Authenticate from './controller/validate';
 
 configDotenv();
 const app = express();
@@ -15,10 +15,10 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // Authorization
-app.use(Authenticate);
+app.use(Basic_Authenticate);
 
 // Need authentication to access endpoint
-app.get('/login', Authenticate, Login);
+app.get('/login', Basic_Authenticate, Login);
 
 // Initialization
 Init(app);
